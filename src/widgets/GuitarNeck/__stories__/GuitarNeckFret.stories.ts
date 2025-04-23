@@ -1,14 +1,13 @@
-import { Note, NoteNames, OctaveNames } from '@/entities';
+import { Note, NoteNames, OctaveNames, FretNote } from '@/entities';
 import { Meta, StoryFn } from '@storybook/vue3';
-import GuitarNeckNote from '../partials/GuitarNeckNote.vue';
 
 export default {
   title: 'GuitarNeck/Note',
-  component: GuitarNeckNote,
-} as Meta<typeof GuitarNeckNote>;
+  component: FretNote,
+} as Meta<typeof FretNote>;
 
-export const NoteActive: StoryFn<typeof GuitarNeckNote> = args => ({
-  components: { GuitarNeckNote },
+export const NoteActive: StoryFn<typeof FretNote> = args => ({
+  components: { FretNote },
   setup() {
     return { args };
   },
@@ -22,8 +21,8 @@ NoteActive.args = {
   isTonic: true,
 };
 
-export const GNoteChanged: StoryFn<typeof GuitarNeckNote> = args => ({
-  components: { GuitarNeckNote },
+export const GNoteChanged: StoryFn<typeof FretNote> = args => ({
+  components: { FretNote },
   setup() {
     return { args };
   },

@@ -1,3 +1,1 @@
-import FretNote from './FretNote.vue'
-
-export { FretNote }
+export { default as FretNote } from './FretNote.vue';

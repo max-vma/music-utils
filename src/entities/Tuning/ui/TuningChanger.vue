@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.tuningChanger">
+  <div :class="$style['tuning-changer']">
     <ElFormItem label="Строй">
       <ElSelect
         :model-value="tuningStore.tuning"
@@ -20,13 +20,13 @@
 
 <script setup lang="ts">
 import { TUNINGS } from '@/entities';
-import { useTuningStore } from '@/stores/tuning';
+import { useTuningStore } from '@/entities/Tuning/model/tuning.store';
 
 const tuningStore = useTuningStore();
 </script>
 
 <style lang="less" module>
-.tuningChanger {
+.tuning-changer {
   display: flex;
   flex-direction: column;
   align-items: center;

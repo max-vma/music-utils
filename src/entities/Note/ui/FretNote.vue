@@ -3,25 +3,25 @@
     ref="fret-note-element"
     v-if="!isHidden || isZeroFret"
     :class="{
-      [$style.note]: true,
-      [$style.isZeroFret]: isZeroFret,
-      [$style.isTonic]: isTonic,
-      [$style.isHidden]: isHidden,
+      [$style['note']]: true,
+      [$style['is-zero-fret']]: isZeroFret,
+      [$style['is-tonic']]: isTonic,
+      [$style['is-hidden']]: isHidden,
     }">
-    <span :class="[$style.noteInner]"> {{ props.note.noteName }}{{ props.note.octave }} </span>
+    <span :class="[$style['note-inner']]"> {{ props.note.noteName }}{{ props.note.octave }} </span>
 
     <template v-if="isZeroFret">
       <div
         @click="$emit('next')"
         v-show="isHovered"
-        :class="[$style.noteTune, $style.noteTuneUp]">
+        :class="[$style['note-tune'], $style['note-tune-up']]">
         <ArrowRight width="16px" />
       </div>
 
       <div
         @click="$emit('prev')"
         v-show="isHovered"
-        :class="[$style.noteTune, $style.noteTuneDown]">
+        :class="[$style['note-tune'], $style['note-tune-down']]">
         <ArrowLeft width="16px" />
       </div>
     </template>
@@ -67,7 +67,6 @@ const isHovered = useElementHover(fretNoteElementRef);
   justify-content: center;
   align-items: center;
   user-select: none;
-  // background-color: #bbbbbb;
   background-color: #616161;
   position: absolute;
   width: 35px;
@@ -77,7 +76,39 @@ const isHovered = useElementHover(fretNoteElementRef);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   transition: 0.2s;
-  // opacity: 1;
+
+  &-tune-up {
+    left: calc(100% - 4px);
+  }
+  &-tune-down {
+    left: calc(-16px);
+  }
+
+  &-tune {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    background-color: #757575;
+    z-index: 1000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+
+    &:hover {
+      transform: scale(1.1, 1.1);
+      transition: 0.2s;
+    }
+
+    &:active {
+      transform: scale(1.05, 1.05);
+      transition: 0.2s;
+    }
+  }
 
   &::after {
     content: '';
@@ -90,55 +121,23 @@ const isHovered = useElementHover(fretNoteElementRef);
   }
 
   &:hover {
-    // scale: 1.25 1.25;
     transform: translate(-50%, -50%) scale(1.15, 1.15);
     transition: 0.2s;
   }
 }
 
-.isZeroFret {
+.is-zero-fret {
   z-index: 3;
 }
 
-.noteTune {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 0;
-  right: 0;
-  border-radius: 50%;
-  background-color: #757575;
-  z-index: 1000;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.2s;
-
-  &:hover {
-    transform: scale(1.1, 1.1);
-    transition: 0.2s;
-  }
-
-  &:active {
-    transform: scale(1.05, 1.05);
-    transition: 0.2s;
-  }
-}
-.noteTuneUp {
-  left: calc(100% - 4px);
-}
-.noteTuneDown {
-  left: calc(-16px);
-}
-.isTonic {
+.is-tonic {
   background-color: #ff6c5c;
 }
 
-.isHidden {
+.is-hidden {
   background-color: #e0e0e0;
 
-  .noteInner {
+  .note-inner {
     color: #616161;
   }
 }

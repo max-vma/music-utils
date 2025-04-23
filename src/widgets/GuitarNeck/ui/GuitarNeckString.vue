@@ -13,12 +13,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import GuitarNeckFret from '@/components/GuitarNeck/partials/GuitarNeckFret.vue';
 import { FretNote, Note } from '@/entities';
-import { useNeckStore } from '@/stores/neck';
-import { useScaleStore } from '@/stores/scale';
-import { useTuningStore } from '@/stores/tuning';
-import { computed } from 'vue';
+import { useScaleStore } from '@/entities/Scale/model/scale.store';
+import { useTuningStore } from '@/entities/Tuning/model/tuning.store';
+import { useNeckStore } from '@/widgets/GuitarNeck/model/guitarNeck.store';
 
 const props = defineProps<{
   tuningNote: Note;

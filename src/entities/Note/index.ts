@@ -1,3 +1,3 @@
-export * from './consts/index';
-export * from './ui/index';
-export * from './model/index';
+export * from './consts';
+export * from './ui';
+export * from './model';

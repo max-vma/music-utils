@@ -1,16 +1,15 @@
 <template>
   <div :class="$style['fretboard-scales-page']">
     <div :class="$style['fretboard-scales-page-inner']">
-      <Controls />
+      <FretboardScalesControls />
       <GuitarNeck />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import GuitarNeck from '@/components/GuitarNeck/index.vue';
-import Controls from '@/components/Controls/index.vue';
 import { useTitle } from '@vueuse/core';
+import { GuitarNeck, FretboardScalesControls } from '@/widgets';
 
 useTitle('Визуализатор музыкальных гамм для струнных инструментов');
 </script>
@@ -22,6 +21,7 @@ useTitle('Визуализатор музыкальных гамм для стр
   display: flex;
   justify-content: center;
 }
+
 .fretboard-scales-page-inner {
   min-width: 80%;
 }

@@ -7,7 +7,7 @@
         value-key="label"
         size="large"
         style="width: 240px"
-        @change="scaleStore.setTonic">
+        @change="onSetTonic">
         <ElOption
           v-for="[key, item] in getEnumEntriesKeys(NoteNames)"
           :label="key"
@@ -23,7 +23,7 @@
         value-key="label"
         size="large"
         style="width: 240px"
-        @change="scaleStore.setType">
+        @change="onSetType">
         <ElOption
           v-for="[key, item] in getEnumEntriesKeys(ScaleNames)"
           :label="key"
@@ -35,10 +35,18 @@
 
 <script setup lang="ts">
 import { NoteNames, ScaleNames } from '@/entities';
+import { useScaleStore } from '@/entities/Scale/model/scale.store';
 import { getEnumEntriesKeys } from '@/shared';
-import { useScaleStore } from '@/stores/scale';
 
 const scaleStore = useScaleStore();
+
+function onSetTonic(tonic: NoteNames) {
+  scaleStore.setTonic(tonic);
+}
+
+function onSetType(scaleName: ScaleNames) {
+  scaleStore.setType(scaleName);
+}
 </script>
 
 <style lang="less" module>

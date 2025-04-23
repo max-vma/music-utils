@@ -1,4 +1,6 @@
 {
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": ["^vue", "^@[^/]+", "<THIRD_PARTY_MODULES>", "^@/", "^[./]"],
   "semi": true,
   "singleQuote": true,
   "arrowParens": "avoid",
@@ -6,5 +8,6 @@
   "tabWidth": 2,
   "useTabs": false,
   "bracketSameLine": true,
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "emptyLineBetweenRules": true
 }

@@ -1,0 +1,8 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-recommended-vue"],
+  "customSyntax": "postcss-html",
+  "rules": {
+    "rule-empty-line-before": ["always", { "except": ["first-nested"], "ignore": ["after-comment"] }]
+  },
+  "ignoreFiles": ["**/*.js", "**/*.ts", "**/*.vue:not(:has(style))"]
+}
