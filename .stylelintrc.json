@@ -1,5 +1,5 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-recommended-vue"],
+  "extends": ["stylelint-config-standard", "stylelint-config-recommended-vue", "stylelint-config-standard-less"],
   "customSyntax": "postcss-html",
   "rules": {
     "rule-empty-line-before": ["always", { "except": ["first-nested"], "ignore": ["after-comment"] }]

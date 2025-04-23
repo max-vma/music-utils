@@ -10,6 +10,7 @@
 .neck-fret {
   flex: 4;
   position: relative;
+
   &:last-child {
     flex: 2;
   }

@@ -14,11 +14,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import GuitarNeckFret from '@/components/GuitarNeck/partials/GuitarNeckFret.vue';
-import { FretNote, Note } from '@/entities';
-import { useScaleStore } from '@/entities/Scale/model/scale.store';
-import { useTuningStore } from '@/entities/Tuning/model/tuning.store';
-import { useNeckStore } from '@/widgets/GuitarNeck/model/guitarNeck.store';
+import { useTuningStore, useScaleStore, FretNote, Note } from '@/entities';
+import { GuitarNeckFret, useNeckStore } from '@/widgets';
 
 const props = defineProps<{
   tuningNote: Note;
