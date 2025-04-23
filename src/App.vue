@@ -1,9 +1,9 @@
 <template>
-  <FretboardScales />
+  <Main />
 </template>
 
 <script setup lang="ts">
-import FretboardScales from '@/pages/FretboardScales.vue';
+import Main from '@/app/Main.vue';
 </script>
 <style lang="less">
 @import 'reset-css';
