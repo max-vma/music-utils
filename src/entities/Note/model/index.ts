@@ -1,2 +1,2 @@
-export * from './Note'
-export * from './NoteCollection'
+export * from './Note';
+export * from './NoteCollection';

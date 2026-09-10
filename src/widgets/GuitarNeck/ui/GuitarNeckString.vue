@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.neckString">
+  <div :class="$style['neck-string']">
     <GuitarNeckFret
       v-for="(note, index) in fretsNotes"
       :key="index">
@@ -51,7 +51,7 @@ function onChangeTuningStringNote(isNext: boolean) {
 </script>
 
 <style lang="less" module>
-.neckString {
+.neck-string {
   display: flex;
   width: 100%;
   height: 40px;

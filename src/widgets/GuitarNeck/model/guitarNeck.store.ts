@@ -1,10 +1,10 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
 
 export const useNeckStore = defineStore('neck', () => {
-	const fretsCount = ref<number>(12)
+  const fretsCount = ref<number>(12);
 
-	return {
-		fretsCount,
-	}
-})
+  return {
+    fretsCount,
+  };
+});

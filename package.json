@@ -6,17 +6,25 @@
   "packageManager": "yarn@4.18.0",
   "scripts": {
     "dev": "vite",
-    "start": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "sb": "storybook",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "ts": "vue-tsc --noEmit",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "ts": "vue-tsc --noEmit",
+    "format": "prettier --write .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.vue": [
+      "stylelint --fix"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@vueuse/core": "^13.1.0",
@@ -52,8 +60,10 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.11.0",
     "globals": "^17.12.0",
+    "husky": "^9.1.7",
     "jsdom": "^30.0.1",
     "less": "^4.2.0",
+    "lint-staged": "^17.5.1",
     "postcss-html": "^1.8.0",
     "prettier": "3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4",

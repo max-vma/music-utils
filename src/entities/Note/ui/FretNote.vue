@@ -29,10 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import { Note } from '@/entities/Note/model';
+import { useTemplateRef } from 'vue';
 import { ArrowRight, ArrowLeft } from '@element-plus/icons-vue';
 import { useElementHover } from '@vueuse/core';
-import { useTemplateRef } from 'vue';
+import { Note } from '@/entities/Note/model';
 
 interface PropTypes {
   note: Note;
@@ -60,7 +60,7 @@ const isHovered = useElementHover(fretNoteElementRef);
 .note {
   color: #fff;
   font-weight: bold;
-  font-size: 16;
+  font-size: 16px;
   font-family: Arial, sans-serif;
   z-index: 2;
   display: flex;
@@ -80,6 +80,7 @@ const isHovered = useElementHover(fretNoteElementRef);
   &-tune-up {
     left: calc(100% - 4px);
   }
+
   &-tune-down {
     left: calc(-16px);
   }

@@ -1,5 +1,5 @@
-import { Note, NoteNames, OctaveNames, FretNote } from '@/entities';
 import { Meta, StoryFn } from '@storybook/vue3';
+import { Note, NoteNames, OctaveNames, FretNote } from '@/entities';
 
 export default {
   title: 'GuitarNeck/Note',

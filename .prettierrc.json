@@ -8,6 +8,5 @@
   "tabWidth": 2,
   "useTabs": false,
   "bracketSameLine": true,
-  "singleAttributePerLine": true,
-  "emptyLineBetweenRules": true
+  "singleAttributePerLine": true
 }
