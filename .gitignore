@@ -34,3 +34,6 @@ plans
 .yarn/build-state.yml
 .yarn/cache
 .pnp.*
+
+# Test coverage
+coverage

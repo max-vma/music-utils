@@ -28,6 +28,16 @@ Feature-ветки создаются от `develop` и именуются по 
 - `chore(vitest): заменить jest на vitest`
 - `docs: добавить соглашения о разработке`
 
+## Тесты
+
+- Фреймворк — Vitest (окружение `jsdom`, setup `vitest.setup.ts`).
+- Тесты располагаются **рядом с исходником**: `<name>.spec.ts` в той же
+  директории, что и `<name>.ts` (co-location).
+- Для компонентов — `@testing-library/vue`, матчеры DOM —
+  `@testing-library/jest-dom`.
+- Запуск: `yarn test` (watch), `yarn test --run` (один прогон),
+  `yarn test:coverage` (покрытие).
+
 ## Цикл работы над задачей
 
 1. `git checkout develop && git pull && git checkout -b <type>/<name>`.
