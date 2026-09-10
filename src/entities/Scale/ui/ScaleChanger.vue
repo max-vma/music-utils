@@ -10,6 +10,7 @@
         @change="onSetTonic">
         <ElOption
           v-for="[key, item] in getEnumEntriesKeys(NoteNames)"
+          :key="key"
           :label="key"
           :value="item" />
       </ElSelect>
@@ -26,6 +27,7 @@
         @change="onSetType">
         <ElOption
           v-for="[key, item] in getEnumEntriesKeys(ScaleNames)"
+          :key="key"
           :label="key"
           :value="item" />
       </ElSelect>

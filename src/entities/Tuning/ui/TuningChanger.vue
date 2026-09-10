@@ -11,6 +11,7 @@
         @change="tuningStore.setTuning">
         <ElOption
           v-for="item in TUNINGS"
+          :key="item.label"
           :label="item.label"
           :value="item" />
       </ElSelect>

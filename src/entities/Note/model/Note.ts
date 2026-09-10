@@ -68,10 +68,10 @@ export class Note {
     const nextNoteIndex = currentNote + (isNext ? 1 : -1);
     if (nextNoteIndex > NOTES_LAST_INDEX) {
       currentNote = NoteNames.C;
-      currentOctave && currentOctave++;
+      if (currentOctave) currentOctave++;
     } else if (nextNoteIndex < 0) {
       currentNote = NoteNames.B;
-      currentOctave && currentOctave--;
+      if (currentOctave) currentOctave--;
     } else {
       currentNote = nextNoteIndex;
     }

@@ -1,10 +1,10 @@
+import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
 import { GUITAR_STANDARD_E, Note } from '@/entities';
 import { Tuning } from '@/entities/Tuning/model/Tuning';
-import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
 
 export const useTuningStore = defineStore('tuning', () => {
-  let tuning = ref<Tuning>(GUITAR_STANDARD_E);
+  const tuning = ref<Tuning>(GUITAR_STANDARD_E);
 
   const setTuning = (newTuning: Tuning) => {
     tuning.value = newTuning;

@@ -1,6 +1,8 @@
 <template>
   <div :class="$style.neckString">
-    <GuitarNeckFret v-for="(note, index) in fretsNotes">
+    <GuitarNeckFret
+      v-for="(note, index) in fretsNotes"
+      :key="index">
       <FretNote
         :isZeroFret="index === 0"
         :note="note"

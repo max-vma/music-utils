@@ -14,8 +14,8 @@ export class MusicalScale extends NoteCollection {
 
   constructor(tonic?: NoteNames | null, createConfig?: MusicalScaleCreateConfig) {
     super();
-    createConfig?.type && (this._type = createConfig.type);
-    tonic && (this._tonic = new Note(tonic));
+    if (createConfig?.type) this._type = createConfig.type;
+    if (tonic) this._tonic = new Note(tonic);
 
     this.createScale(createConfig);
   }
