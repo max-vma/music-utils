@@ -18,8 +18,15 @@ Feature-ветки создаются от `develop` и именуются по 
 Формат: `<type>(<scope>): <summary>`.
 
 Типы: `feat`, `fix`, `refactor`, `chore`, `test`, `docs`, `build`, `ci`.
-Примеры: `fix(note): correct octave wrap in upOnSemitones`,
-`chore(vitest): replace jest with vitest`.
+
+`<type>` и `<scope>` остаются на английском, а `summary` (и тело коммита)
+**пишется на русском языке**.
+
+Примеры:
+
+- `fix(note): исправить перенос октавы в upOnSemitones`
+- `chore(vitest): заменить jest на vitest`
+- `docs: добавить соглашения о разработке`
 
 ## Цикл работы над задачей
 
