@@ -56,6 +56,6 @@ function onChangeTuningStringNote(isNext: boolean) {
   display: flex;
   width: 100%;
   height: 40px;
-  background-color: #fff;
+  background-color: var(--neck-string-bg);
 }
 </style>

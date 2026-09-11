@@ -63,7 +63,7 @@ useTitle('Музыкальные утилиты');
 
 .home-page-description {
   margin-bottom: 24px;
-  color: #606266;
+  color: var(--app-text-muted);
 }
 
 .home-page-utilities {
@@ -79,14 +79,14 @@ useTitle('Музыкальные утилиты');
 
 .utility-card-text {
   margin-bottom: 16px;
-  color: #606266;
+  color: var(--app-text-muted);
 }
 
 .utility-card-action {
   display: inline-block;
   padding: 8px 16px;
   color: #fff;
-  background-color: #409eff;
+  background-color: var(--accent);
   border-radius: 4px;
   text-decoration: none;
 }
@@ -97,5 +97,15 @@ useTitle('Музыкальные утилиты');
 
 .utility-card-badge {
   margin-left: 8px;
+}
+
+@media (width <= 480px) {
+  .home-page {
+    padding: 20px 12px;
+  }
+
+  .home-page-title {
+    font-size: 26px;
+  }
 }
 </style>

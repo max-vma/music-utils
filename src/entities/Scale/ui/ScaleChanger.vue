@@ -3,10 +3,11 @@
     <ElFormItem label="Выбери тонику">
       <ElSelect
         :model-value="scaleStore.tonic"
+        aria-label="Выбери тонику"
         placeholder="Выбери тонику"
         value-key="label"
         size="large"
-        style="width: 240px"
+        :class="$style['scale-changer-select']"
         @change="onSetTonic">
         <ElOption
           v-for="option in noteOptions"
@@ -19,11 +20,11 @@
     <ElFormItem label="Выберите Тип">
       <ElSelect
         :model-value="scaleStore.type"
+        aria-label="Выберите тип гаммы"
         placeholder="Выбери тип"
-        label="Строй"
         value-key="label"
         size="large"
-        style="width: 240px"
+        :class="$style['scale-changer-select']"
         @change="onSetType">
         <ElOption
           v-for="option in scaleOptions"
@@ -73,5 +74,10 @@ function onSetType(scaleName: ScaleNames) {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+
+  &-select {
+    width: 100%;
+    max-width: 240px;
+  }
 }
 </style>
