@@ -36,6 +36,14 @@ describe('Tuning', () => {
     expect(original.notes[0].note).toBe(originalFirstNote);
   });
 
+  it('setStringNote расширяет строй, если индекс выходит за границы', () => {
+    const extended = GUITAR_STANDARD_E.setStringNote(6, new Note(NoteNames.B, OctaveNames.One));
+
+    expect(extended.notes).toHaveLength(7);
+    expect(extended.notes[6].note).toBe(NoteNames.B);
+    expect(extended.notes[5].note).toBe(NoteNames.E);
+  });
+
   it('содержит уникальные предустановки строёв', () => {
     const labels = TUNINGS.map(tuning => tuning.label);
 

@@ -6,7 +6,7 @@
     tabindex="0">
     <div :class="$style['neck']">
       <GuitarNeckString
-        v-for="(note, index) in tuningStore.notes"
+        v-for="(note, index) in neckStore.stringNotes"
         :tuningNote="note"
         :key="index" />
     </div>
@@ -14,10 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { useTuningStore } from '@/entities/Tuning/model/tuning.store';
+import { useNeckStore } from '@/widgets/GuitarNeck/model/guitarNeck.store';
 import GuitarNeckString from './GuitarNeckString.vue';
 
-const tuningStore = useTuningStore();
+const neckStore = useNeckStore();
 </script>
 
 <style lang="less" module>
