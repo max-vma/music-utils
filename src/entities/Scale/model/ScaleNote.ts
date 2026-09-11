@@ -1,12 +1,11 @@
-import { Note, NoteNames, OctaveNames } from '@/entities';
+import { NoteNames, OctaveNames } from '@/entities/Note/consts';
+import { Note } from '@/entities/Note/model/Note';
 
 export class ScaleNote extends Note {
-  public _step: any;
+  private _step = 0;
 
   constructor(note: NoteNames | Note, step: number, octave?: OctaveNames) {
-    if (note instanceof Note) super(note.note, note.octave);
-    else super(note, octave);
-
+    super(note instanceof Note ? note.note : note, note instanceof Note ? note.octave : octave);
     this.step = step;
   }
 

@@ -1,5 +1,6 @@
 import { Note, NoteCollection, NoteNames } from '@/entities/Note';
-import { Scales, ScaleNames } from '@/entities/Scale/consts';
+import { MAX_NOTES_COUNT } from '@/entities/Note/consts';
+import { ScaleNames, Scales } from '@/entities/Scale/consts';
 import { ScaleNote } from '@/entities/Scale/model/ScaleNote';
 
 interface MusicalScaleCreateConfig {
@@ -14,33 +15,41 @@ export class MusicalScale extends NoteCollection {
 
   constructor(tonic?: NoteNames | null, createConfig?: MusicalScaleCreateConfig) {
     super();
-    if (createConfig?.type) this._type = createConfig.type;
+    if (createConfig?.type !== undefined) this._type = createConfig.type;
     if (tonic) this._tonic = new Note(tonic);
 
-    this.createScale(createConfig);
+    if (createConfig?.from && createConfig?.to) {
+      this._tonic = new Note(createConfig.from.note, createConfig.from.octave);
+      this.createRange(createConfig.from, createConfig.to);
+    } else {
+      this.createScale();
+    }
   }
 
-  private createScale(config?: MusicalScaleCreateConfig) {
-    if (config && config.type !== undefined) {
-      const steps = Scales[config.type];
-      this.push(this.tonic);
-      const currentNote = new Note(this.tonic.note);
+  private createScale(): void {
+    const steps = Scales[this._type];
 
-      steps.forEach((s: number, index) => {
-        const uppedNote = currentNote.upOnSemitones(s);
-        this.push(new ScaleNote(uppedNote, index + 1));
-      });
-    }
+    this.push(new ScaleNote(this.tonic, 0));
 
-    if (config && config.from && config.to) {
-      const { from, to } = config;
-      this.push(from);
-      const currentNote = from;
+    const currentNote = new Note(this.tonic.note);
 
-      for (let index = from.note; index < to.note; index++) {
-        const uppedNote = currentNote.upOnSemitones(1);
-        this.push(uppedNote);
-      }
+    steps.forEach((step, index) => {
+      currentNote.upOnSemitones(step);
+      this.push(new ScaleNote(currentNote, index + 1));
+    });
+  }
+
+  private createRange(from: Note, to: Note): void {
+    const onlyNote = to.octave === undefined;
+    const maxIterations = MAX_NOTES_COUNT * 10;
+    let current: Note = new Note(from.note, from.octave);
+
+    for (let index = 0; index < maxIterations; index++) {
+      this.push(new ScaleNote(current, index));
+
+      if (current.is(to, onlyNote)) return;
+
+      current = current.getNextSemitoneNote();
     }
   }
 
