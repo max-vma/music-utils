@@ -6,7 +6,8 @@
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/app/stores/layouts';
 
-const { CurrentLayoutComponent } = useLayoutStore();
+const { CurrentLayoutComponent } = storeToRefs(useLayoutStore());
 </script>
