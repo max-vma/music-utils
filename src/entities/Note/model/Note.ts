@@ -1,4 +1,4 @@
-import { NoteNames, NOTES_LAST_INDEX, OctaveNames } from '@/entities';
+import { MAX_NOTES_COUNT, NoteNames, NOTES_LAST_INDEX, OctaveNames } from '@/entities/Note/consts';
 
 export class Note {
   private _note: NoteNames = NoteNames.C;
@@ -9,7 +9,7 @@ export class Note {
   constructor(note: NoteNames, octave?: OctaveNames, indexInCollection?: number) {
     this.note = note;
     this.octave = octave;
-    if (indexInCollection) this.indexInCollection = indexInCollection;
+    if (indexInCollection !== undefined) this.indexInCollection = indexInCollection;
   }
 
   public set note(note: NoteNames) {
@@ -30,12 +30,12 @@ export class Note {
     return this._octave;
   }
 
-  public is(note: Note | NoteNames, onlyNote: boolean = true) {
+  public is(note: Note | NoteNames, onlyNote: boolean = true): boolean {
     const gettedNote = this.getNote(note);
     const isEqualNotes = gettedNote.note === this.note;
-    const isEqualOctaves = gettedNote.octave === this.octave;
 
-    return onlyNote ? isEqualNotes : isEqualNotes && isEqualOctaves;
+    if (onlyNote) return isEqualNotes;
+    return isEqualNotes && gettedNote.octave === this.octave;
   }
 
   protected getNote(note: Note | NoteNames): Note {
@@ -43,42 +43,46 @@ export class Note {
   }
 
   public upOnSemitones(semiTones: number): Note {
-    let currentNoteIndex: number = (this.note as number) + semiTones;
-    if (currentNoteIndex > NOTES_LAST_INDEX) currentNoteIndex = currentNoteIndex - NOTES_LAST_INDEX - 1;
+    const absoluteIndex = (this.note as number) + semiTones;
+    const octaveShift = Math.floor(absoluteIndex / MAX_NOTES_COUNT);
+    const noteIndex = ((absoluteIndex % MAX_NOTES_COUNT) + MAX_NOTES_COUNT) % MAX_NOTES_COUNT;
 
-    const a = NoteNames[currentNoteIndex];
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    this.note = NoteNames[a];
+    this.note = noteIndex as NoteNames;
+    if (this._octave !== undefined && octaveShift !== 0) {
+      this.octave = (this._octave + octaveShift) as OctaveNames;
+    }
+
     return this;
   }
 
-  public getNoteName(noteNumber: number = this.note, octave?: OctaveNames): string {
-    const noteNames = Object.keys(NoteNames).filter(key => isNaN(Number(key))) as Array<keyof typeof NoteNames>;
-    const noteName = noteNames.find(name => NoteNames[name] === noteNumber);
-    return `${noteName}${octave ? octave : ''}`;
+  public getNoteName(noteNumber: NoteNames = this.note, octave?: OctaveNames): string {
+    return `${NoteNames[noteNumber]}${octave ?? ''}`;
   }
 
   public getNextSemitoneNote(): Note {
     return this.getOtherNote(true);
   }
-  public getOtherNote(isNext: boolean) {
-    let currentNote = this.note;
-    let currentOctave = this.octave;
-    const nextNoteIndex = currentNote + (isNext ? 1 : -1);
+
+  public getOtherNote(isNext: boolean): Note {
+    const nextNoteIndex = (this.note as number) + (isNext ? 1 : -1);
+    let currentNote: NoteNames;
+    let currentOctave = this._octave;
+
     if (nextNoteIndex > NOTES_LAST_INDEX) {
       currentNote = NoteNames.C;
-      if (currentOctave) currentOctave++;
+      if (currentOctave !== undefined) currentOctave = (currentOctave + 1) as OctaveNames;
     } else if (nextNoteIndex < 0) {
       currentNote = NoteNames.B;
-      if (currentOctave) currentOctave--;
+      if (currentOctave !== undefined) currentOctave = (currentOctave - 1) as OctaveNames;
     } else {
-      currentNote = nextNoteIndex;
+      currentNote = nextNoteIndex as NoteNames;
     }
+
     const newNote = new Note(currentNote, currentOctave);
     newNote.indexInCollection = this.indexInCollection;
     return newNote;
   }
+
   public getPrevSemitoneNote(): Note {
     return this.getOtherNote(false);
   }
