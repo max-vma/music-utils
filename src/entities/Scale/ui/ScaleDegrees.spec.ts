@@ -38,13 +38,21 @@ describe('ScaleDegrees', () => {
   it('пересчитывает ступени при смене гаммы', async () => {
     const { store } = renderScaleDegrees(NoteNames.C, ScaleNames.NaturalMajor);
 
-    expect(screen.queryByLabelText('D#: ступень bIII')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Eb: ступень bIII')).not.toBeInTheDocument();
 
     store.setType(ScaleNames.BluesMinor);
 
     await waitFor(() => {
-      expect(screen.getByLabelText('D#: ступень bIII')).toBeInTheDocument();
+      expect(screen.getByLabelText('Eb: ступень bIII')).toBeInTheDocument();
     });
-    expect(screen.getByLabelText('A#: ступень bVII')).toBeInTheDocument();
+    expect(screen.getByLabelText('Bb: ступень bVII')).toBeInTheDocument();
+  });
+
+  it('записывает альтерированные ноты музыкально корректно', () => {
+    renderScaleDegrees(NoteNames.C, ScaleNames.NaturalMinor);
+
+    expect(screen.getByLabelText('Eb: ступень bIII')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ab: ступень bVI')).toBeInTheDocument();
+    expect(screen.getByLabelText('Bb: ступень bVII')).toBeInTheDocument();
   });
 });

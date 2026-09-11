@@ -13,6 +13,12 @@ describe('FretNote', () => {
     expect(wrapper.text()).toContain('E2');
   });
 
+  it('использует переданное музыкальное имя ноты', () => {
+    const wrapper = mount(FretNote, { props: { note: createNote(), displayName: 'Fb2' } });
+
+    expect(wrapper.text()).toContain('Fb2');
+  });
+
   it('на нулевом ладу показывает доступные кнопки настройки струны', () => {
     const wrapper = mount(FretNote, {
       props: { note: createNote(), isZeroFret: true },
