@@ -3,11 +3,11 @@
     <ElFormItem label="Строй">
       <ElSelect
         :model-value="tuningStore.tuning"
+        aria-label="Выберите строй"
         placeholder="Выберите строй"
-        label="Строй"
         value-key="label"
         size="large"
-        style="width: 240px"
+        :class="$style['tuning-changer-select']"
         @change="tuningStore.setTuning">
         <ElOption
           v-for="item in TUNINGS"
@@ -32,5 +32,10 @@ const tuningStore = useTuningStore();
   flex-direction: column;
   align-items: center;
   gap: 8px;
+
+  &-select {
+    width: 100%;
+    max-width: 240px;
+  }
 }
 </style>

@@ -25,4 +25,10 @@ useTitle('Визуализатор музыкальных гамм для стр
 .fretboard-scales-page-inner {
   min-width: 80%;
 }
+
+@media (width <= 480px) {
+  .fretboard-scales-page {
+    padding: 8px;
+  }
+}
 </style>

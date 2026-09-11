@@ -1,6 +1,5 @@
 <template>
   <div
-    ref="fret-note-element"
     v-if="!isHidden || isZeroFret"
     :class="{
       [$style['note']]: true,
@@ -8,30 +7,31 @@
       [$style['is-tonic']]: isTonic,
       [$style['is-hidden']]: isHidden,
     }">
-    <span :class="[$style['note-inner']]"> {{ props.note.noteName }}{{ props.note.octave }} </span>
+    <span :class="[$style['note-inner']]">{{ noteLabel }}</span>
 
     <template v-if="isZeroFret">
-      <div
-        @click="$emit('next')"
-        v-show="isHovered"
-        :class="[$style['note-tune'], $style['note-tune-up']]">
-        <ArrowRight width="16px" />
-      </div>
-
-      <div
-        @click="$emit('prev')"
-        v-show="isHovered"
-        :class="[$style['note-tune'], $style['note-tune-down']]">
+      <button
+        type="button"
+        :aria-label="`Понизить струну на полутон: ${noteLabel}`"
+        :class="[$style['note-tune'], $style['note-tune-down']]"
+        @click="$emit('prev')">
         <ArrowLeft width="16px" />
-      </div>
+      </button>
+
+      <button
+        type="button"
+        :aria-label="`Повысить струну на полутон: ${noteLabel}`"
+        :class="[$style['note-tune'], $style['note-tune-up']]"
+        @click="$emit('next')">
+        <ArrowRight width="16px" />
+      </button>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef } from 'vue';
+import { computed } from 'vue';
 import { ArrowRight, ArrowLeft } from '@element-plus/icons-vue';
-import { useElementHover } from '@vueuse/core';
 import { Note } from '@/entities/Note/model';
 
 interface PropTypes {
@@ -51,14 +51,12 @@ defineEmits<{
   (e: 'next'): void;
 }>();
 
-const fretNoteElementRef = useTemplateRef('fret-note-element');
-
-const isHovered = useElementHover(fretNoteElementRef);
+const noteLabel = computed(() => `${props.note.noteName}${props.note.octave ?? ''}`);
 </script>
 
 <style lang="less" module>
 .note {
-  color: #fff;
+  color: var(--note-text);
   font-weight: bold;
   font-size: 16px;
   font-family: Arial, sans-serif;
@@ -67,7 +65,7 @@ const isHovered = useElementHover(fretNoteElementRef);
   justify-content: center;
   align-items: center;
   user-select: none;
-  background-color: #616161;
+  background-color: var(--note-bg);
   position: absolute;
   width: 35px;
   height: 35px;
@@ -77,38 +75,51 @@ const isHovered = useElementHover(fretNoteElementRef);
   border-radius: 50%;
   transition: 0.2s;
 
-  &-tune-up {
-    left: calc(100% - 4px);
-  }
-
-  &-tune-down {
-    left: calc(-16px);
+  &-inner {
+    line-height: 1;
   }
 
   &-tune {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    left: 0;
-    right: 0;
-    border-radius: 50%;
-    background-color: #757575;
-    z-index: 1000;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.2s;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    color: var(--note-tune-text);
+    background-color: var(--note-tune-bg);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+    transition:
+      opacity 0.2s,
+      transform 0.2s;
+  }
 
-    &:hover {
-      transform: scale(1.1, 1.1);
-      transition: 0.2s;
-    }
+  &-tune-down {
+    left: -16px;
+  }
 
-    &:active {
-      transform: scale(1.05, 1.05);
-      transition: 0.2s;
-    }
+  &-tune-up {
+    left: calc(100% - 4px);
+  }
+
+  &-tune:hover {
+    transform: scale(1.1, 1.1);
+  }
+
+  &-tune:active {
+    transform: scale(1.05, 1.05);
+  }
+
+  &:hover .note-tune,
+  &:focus-within .note-tune {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   &::after {
@@ -132,14 +143,29 @@ const isHovered = useElementHover(fretNoteElementRef);
 }
 
 .is-tonic {
-  background-color: #ff6c5c;
+  color: var(--note-tonic-text);
+  background-color: var(--note-tonic-bg);
 }
 
 .is-hidden {
-  background-color: #e0e0e0;
+  color: var(--note-hidden-text);
+  background-color: var(--note-hidden-bg);
+}
 
-  .note-inner {
-    color: #616161;
+@media (hover: none) {
+  .note-tune {
+    width: 28px;
+    height: 28px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .note-tune-down {
+    left: -22px;
+  }
+
+  .note-tune-up {
+    left: calc(100% - 6px);
   }
 }
 </style>

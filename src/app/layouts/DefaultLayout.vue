@@ -1,17 +1,21 @@
 <template>
   <ElContainer :class="['default-layout']">
     <ElContainer>
-      <ElHeader>
-        <div class="header">
+      <ElHeader class="header">
+        <nav
+          aria-label="Основная навигация"
+          class="header-nav">
           <el-menu
             mode="horizontal"
-            background-color="#409EFF"
+            background-color="#1c5fb0"
             text-color="#fff">
             <el-menu-item index="1">
               <RouterLink :to="FRETBOARD_SCALES_URL">Визуализатор гамм</RouterLink>
             </el-menu-item>
           </el-menu>
-        </div>
+        </nav>
+
+        <ThemeToggle />
       </ElHeader>
 
       <ElMain>
@@ -27,33 +31,34 @@
 
 <script setup>
 import { FRETBOARD_SCALES_URL } from '@/widgets/FretboardScalesControls/consts';
+import { ThemeToggle } from '@/widgets/ThemeToggle';
 </script>
 
 <style scoped>
 .default-layout {
   height: 100vh;
+  height: 100dvh;
 }
 
-/* .el-header {
-  background-color: #409eff;
-  color: white;
+.header {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
-.el-aside {
-  background-color: #545c64;
-  color: white;
+.header-nav {
+  flex: 1;
+  min-width: 0;
 }
 
-.el-main {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-.el-footer {
-  background-color: #ddd;
+.footer {
+  padding: 12px;
   text-align: center;
-  padding: 10px;
-} */
+}
+
+@media (width <= 480px) {
+  .header {
+    padding: 0 8px;
+  }
+}
 </style>

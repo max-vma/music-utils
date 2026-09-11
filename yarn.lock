@@ -815,6 +815,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pinia/testing@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "@pinia/testing@npm:0.1.7"
+  dependencies:
+    vue-demi: "npm:^0.14.10"
+  peerDependencies:
+    pinia: ">=2.2.6"
+  checksum: 10c0/427dee43d4fab22071a3cb5146b3bff7179bdede4c729ac9121affe818d148f81a57665d74924ee3df55395b860ec1a64c95de61b81971dcf3a63f95941f2f18
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -4207,6 +4218,7 @@ __metadata:
   dependencies:
     "@element-plus/icons-vue": "npm:^2.3.2"
     "@eslint/js": "npm:^10.0.1"
+    "@pinia/testing": "npm:^0.1.7"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.4.2"
     "@testing-library/user-event": "npm:^14.5.2"

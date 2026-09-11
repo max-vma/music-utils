@@ -25,7 +25,7 @@
     right: 0;
     height: 100%;
     width: 5px;
-    background-color: #7b7b7b;
+    background-color: var(--neck-fret-line);
     border-radius: 2px;
   }
 
@@ -38,7 +38,7 @@
     z-index: 1;
     height: 3px;
     width: 100%;
-    background-color: #cbcbcb;
+    background-color: var(--neck-string-line);
   }
 }
 </style>
