@@ -10,6 +10,18 @@ enum ScaleNames {
   BluesMajor,
 }
 
+const SCALE_LABELS: Record<ScaleNames, string> = {
+  [ScaleNames.Lydian]: 'Лидийский',
+  [ScaleNames.NaturalMajor]: 'Натуральный мажор',
+  [ScaleNames.Mixolydian]: 'Миксолидийский',
+  [ScaleNames.Dorian]: 'Дорийский',
+  [ScaleNames.NaturalMinor]: 'Натуральный минор',
+  [ScaleNames.Phrygian]: 'Фригийский',
+  [ScaleNames.Locrian]: 'Локрийский',
+  [ScaleNames.BluesMinor]: 'Блюзовый минор',
+  [ScaleNames.BluesMajor]: 'Блюзовый мажор',
+};
+
 enum ToneStep {
   T = 2, // Тон (2 полутона)
   H = 1, // Полутон (1 полутон)
@@ -33,4 +45,4 @@ const Scales: TScales = {
   [ScaleNames.BluesMajor]: [T, H, H, T + H, T, T],
 };
 
-export { ScaleNames, Scales, ToneStep };
+export { SCALE_LABELS, ScaleNames, Scales, ToneStep };

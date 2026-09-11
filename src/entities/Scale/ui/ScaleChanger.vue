@@ -9,10 +9,10 @@
         style="width: 240px"
         @change="onSetTonic">
         <ElOption
-          v-for="[key, item] in getEnumEntriesKeys(NoteNames)"
-          :key="key"
-          :label="key"
-          :value="item" />
+          v-for="option in noteOptions"
+          :key="option.value"
+          :label="option.label"
+          :value="option.value" />
       </ElSelect>
     </ElFormItem>
 
@@ -26,10 +26,10 @@
         style="width: 240px"
         @change="onSetType">
         <ElOption
-          v-for="[key, item] in getEnumEntriesKeys(ScaleNames)"
-          :key="key"
-          :label="key"
-          :value="item" />
+          v-for="option in scaleOptions"
+          :key="option.value"
+          :label="option.label"
+          :value="option.value" />
       </ElSelect>
     </ElFormItem>
   </div>
@@ -37,11 +37,26 @@
 
 <script setup lang="ts">
 import { NoteNames } from '@/entities/Note/consts';
-import { ScaleNames } from '@/entities/Scale/consts';
+import { SCALE_LABELS, ScaleNames } from '@/entities/Scale/consts';
 import { useScaleStore } from '@/entities/Scale/model/scale.store';
 import { getEnumEntriesKeys } from '@/shared';
 
+type SelectOption<T extends number> = {
+  label: string;
+  value: T;
+};
+
 const scaleStore = useScaleStore();
+
+const noteOptions = getEnumEntriesKeys(NoteNames).map<SelectOption<NoteNames>>(([label, value]) => ({
+  label,
+  value: value as NoteNames,
+}));
+
+const scaleOptions = getEnumEntriesKeys(ScaleNames).map<SelectOption<ScaleNames>>(([, value]) => ({
+  label: SCALE_LABELS[value as ScaleNames],
+  value: value as ScaleNames,
+}));
 
 function onSetTonic(tonic: NoteNames) {
   scaleStore.setTonic(tonic);
