@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
-import { DefaultLayout, EmptyLayout } from '@/app';
+import { DefaultLayout, EmptyLayout } from '@/app/layouts';
 
 export const useLayoutStore = defineStore('layout', () => {
   const layouts = {

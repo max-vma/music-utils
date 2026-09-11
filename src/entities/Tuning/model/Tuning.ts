@@ -1,4 +1,4 @@
-import { Note, NoteCollection } from '@/entities';
+import { Note, NoteCollection } from '@/entities/Note/model';
 
 export class Tuning extends NoteCollection {
   constructor(

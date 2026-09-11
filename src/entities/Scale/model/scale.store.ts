@@ -1,6 +1,8 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { MusicalScale, NoteNames, ScaleNames } from '@/entities';
+import { NoteNames } from '@/entities/Note/consts';
+import { ScaleNames } from '@/entities/Scale/consts';
+import { MusicalScale } from '@/entities/Scale/model/MusicalScale';
 
 export const useScaleStore = defineStore('scale', () => {
   const tonic = ref<NoteNames>(NoteNames.E);

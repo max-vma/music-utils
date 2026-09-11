@@ -36,7 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import { NoteNames, ScaleNames } from '@/entities';
+import { NoteNames } from '@/entities/Note/consts';
+import { ScaleNames } from '@/entities/Scale/consts';
 import { useScaleStore } from '@/entities/Scale/model/scale.store';
 import { getEnumEntriesKeys } from '@/shared';
 

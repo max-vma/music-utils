@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { useTuningStore } from '@/entities/Tuning/model/tuning.store';
-import { GuitarNeckString } from '@/widgets';
+import GuitarNeckString from './GuitarNeckString.vue';
 
 const tuningStore = useTuningStore();
 </script>

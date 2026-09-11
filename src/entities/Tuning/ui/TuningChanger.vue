@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { TUNINGS } from '@/entities';
+import { TUNINGS } from '@/entities/Tuning/consts';
 import { useTuningStore } from '@/entities/Tuning/model/tuning.store';
 
 const tuningStore = useTuningStore();
