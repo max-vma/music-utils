@@ -67,6 +67,62 @@ describe('MusicalScale', () => {
     });
   });
 
+  describe('ступени и интервалы', () => {
+    it('определяет ступени натурального мажора', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.NaturalMajor });
+
+      expect(scale.degreeLabels).toEqual(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']);
+    });
+
+    it('альтерирует ступени натурального минора', () => {
+      const scale = new MusicalScale(NoteNames.A, { type: ScaleNames.NaturalMinor });
+
+      expect(scale.degreeLabels).toEqual(['I', 'II', 'bIII', 'IV', 'V', 'bVI', 'bVII', 'VIII']);
+    });
+
+    it('определяет повышенную кварту в лидийском ладу', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.Lydian });
+
+      expect(scale.degreeLabels).toEqual(['I', 'II', 'III', '#IV', 'V', 'VI', 'VII', 'VIII']);
+    });
+
+    it('считает интервалы натурального мажора', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.NaturalMajor });
+
+      expect(scale.intervalLabels).toEqual(['б.2', 'б.2', 'м.2', 'б.2', 'б.2', 'б.2', 'м.2']);
+      expect(scale.intervals.map(interval => interval.semitones)).toEqual([2, 2, 1, 2, 2, 2, 1]);
+    });
+
+    it('работает с блюзовой гаммой из шести интервалов', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.BluesMinor });
+
+      expect(scale.degreeLabels).toEqual(['I', 'bIII', 'IV', '#IV', 'V', 'bVII', 'VIII']);
+      expect(scale.intervalLabels).toEqual(['м.3', 'б.2', 'ув.1', 'м.2', 'м.3', 'б.2']);
+    });
+
+    it('переходит через границу октавы в диапазоне', () => {
+      const scale = new MusicalScale(null, {
+        from: new Note(NoteNames.C, OctaveNames.Four),
+        to: new Note(NoteNames.C, OctaveNames.Five),
+      });
+
+      expect(scale.notes.length).toBe(13);
+      expect(scale.degreeLabels[0]).toBe('I');
+      expect(scale.degreeLabels[12]).toBe('VIII');
+      expect(scale.intervals[11]).toMatchObject({ semitones: 1, label: 'м.2' });
+    });
+
+    it('обрабатывает гамму из одной ноты', () => {
+      const scale = new MusicalScale(null, {
+        from: new Note(NoteNames.C, OctaveNames.Four),
+        to: new Note(NoteNames.C, OctaveNames.Four),
+      });
+
+      expect(scale.degreeLabels).toEqual(['I']);
+      expect(scale.intervals).toEqual([]);
+    });
+  });
+
   describe('создание по диапазону from/to', () => {
     it('включает обе границы', () => {
       const scale = new MusicalScale(null, {

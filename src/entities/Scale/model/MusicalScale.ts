@@ -2,6 +2,7 @@ import { Note, NoteCollection, NoteNames } from '@/entities/Note';
 import { MAX_NOTES_COUNT } from '@/entities/Note/consts';
 import { ScaleNames, Scales } from '@/entities/Scale/consts';
 import { ScaleNote } from '@/entities/Scale/model/ScaleNote';
+import { getScaleInterval, getScaleStep, ScaleInterval, ScaleStep } from '@/entities/Scale/model/scaleDegree';
 
 interface MusicalScaleCreateConfig {
   from?: Note;
@@ -29,13 +30,15 @@ export class MusicalScale extends NoteCollection {
   private createScale(): void {
     const steps = Scales[this._type];
 
-    this.push(new ScaleNote(this.tonic, 0));
+    this.push(new ScaleNote(this.tonic, 0, undefined, 0));
 
     const currentNote = new Note(this.tonic.note);
+    let semitonesFromTonic = 0;
 
     steps.forEach((step, index) => {
       currentNote.upOnSemitones(step);
-      this.push(new ScaleNote(currentNote, index + 1));
+      semitonesFromTonic += step;
+      this.push(new ScaleNote(currentNote, index + 1, undefined, semitonesFromTonic));
     });
   }
 
@@ -43,14 +46,38 @@ export class MusicalScale extends NoteCollection {
     const onlyNote = to.octave === undefined;
     const maxIterations = MAX_NOTES_COUNT * 10;
     let current: Note = new Note(from.note, from.octave);
+    let semitonesFromTonic = 0;
 
     for (let index = 0; index < maxIterations; index++) {
-      this.push(new ScaleNote(current, index));
+      this.push(new ScaleNote(current, index, undefined, semitonesFromTonic));
 
       if (current.is(to, onlyNote)) return;
 
       current = current.getNextSemitoneNote();
+      semitonesFromTonic += 1;
     }
+  }
+
+  public get degrees(): ScaleStep[] {
+    return this.notes.map(note => (note instanceof ScaleNote ? note.degree : getScaleStep(0)));
+  }
+
+  public get degreeLabels(): string[] {
+    return this.degrees.map(degree => degree.label);
+  }
+
+  public get intervals(): ScaleInterval[] {
+    return this.notes.slice(1).map((note, index) => {
+      const previous = this.notes[index];
+      const from = previous instanceof ScaleNote ? previous.semitonesFromTonic : 0;
+      const to = note instanceof ScaleNote ? note.semitonesFromTonic : 0;
+
+      return getScaleInterval(from, to);
+    });
+  }
+
+  public get intervalLabels(): string[] {
+    return this.intervals.map(interval => interval.label);
   }
 
   public getStepIndex(note: Note | NoteNames): number {

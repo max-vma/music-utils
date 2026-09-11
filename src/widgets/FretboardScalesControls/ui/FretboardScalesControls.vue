@@ -22,12 +22,13 @@
         Звуковой ряд
       </h2>
       <ScaleChanger />
+      <ScaleDegrees />
     </section>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ScaleChanger, TuningChanger } from '@/entities';
+import { ScaleChanger, ScaleDegrees, TuningChanger } from '@/entities';
 </script>
 
 <style lang="less" module>
