@@ -15,6 +15,17 @@
 
     <section
       :class="$style['controls-block']"
+      aria-labelledby="controls-neck-size-title">
+      <h2
+        id="controls-neck-size-title"
+        :class="$style['controls-block-title']">
+        Размер грифа
+      </h2>
+      <NeckSizeChanger />
+    </section>
+
+    <section
+      :class="$style['controls-block']"
       aria-labelledby="controls-scale-title">
       <h2
         id="controls-scale-title"
@@ -29,6 +40,7 @@
 
 <script setup lang="ts">
 import { ScaleChanger, ScaleDegrees, TuningChanger } from '@/entities';
+import { NeckSizeChanger } from '@/widgets/GuitarNeck';
 </script>
 
 <style lang="less" module>
