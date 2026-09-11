@@ -195,4 +195,55 @@ describe('MusicalScale', () => {
       expect(scale.notes.length).toBeLessThanOrEqual(120);
     });
   });
+
+  describe('музыкальная запись нот', () => {
+    it('пишет бемоли в натуральном миноре', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.NaturalMinor });
+
+      expect(scale.getDisplayNames()).toEqual(['C', 'D', 'Eb', 'F', 'G', 'Ab', 'Bb', 'C']);
+    });
+
+    it('повышает кварту в лидийском ладу', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.Lydian });
+
+      expect(scale.getDisplayNames()).toEqual(['C', 'D', 'E', 'F#', 'G', 'A', 'B', 'C']);
+    });
+
+    it('корректно записывает блюзовую гамму', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.BluesMinor });
+
+      expect(scale.getDisplayNames()).toEqual(['C', 'Eb', 'F', 'F#', 'G', 'Bb', 'C']);
+    });
+
+    it('использует диезы и теоретические ноты для диезной тоники', () => {
+      const scale = new MusicalScale(NoteNames['C#'], { type: ScaleNames.NaturalMajor });
+
+      expect(scale.getDisplayNames()).toEqual(['C#', 'D#', 'E#', 'F#', 'G#', 'A#', 'B#', 'C#']);
+    });
+
+    it('не дублирует буквы ступеней в пределах тональности', () => {
+      const scale = new MusicalScale(NoteNames.A, { type: ScaleNames.NaturalMinor });
+      const letters = scale
+        .getDisplayNames()
+        .slice(0, 7)
+        .map(name => name[0]);
+
+      expect(new Set(letters).size).toBe(7);
+    });
+
+    it('сохраняет хроматическое имя для сравнения по высоте', () => {
+      const scale = new MusicalScale(NoteNames.C, { type: ScaleNames.NaturalMinor });
+
+      expect(scale.notes.map(note => note.note)).toEqual([
+        NoteNames.C,
+        NoteNames.D,
+        NoteNames['D#'],
+        NoteNames.F,
+        NoteNames.G,
+        NoteNames['G#'],
+        NoteNames['A#'],
+        NoteNames.C,
+      ]);
+    });
+  });
 });

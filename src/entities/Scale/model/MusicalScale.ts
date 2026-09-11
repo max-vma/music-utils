@@ -2,6 +2,7 @@ import { Note, NoteCollection, NoteNames } from '@/entities/Note';
 import { MAX_NOTES_COUNT } from '@/entities/Note/consts';
 import { ScaleNames, Scales } from '@/entities/Scale/consts';
 import { ScaleNote } from '@/entities/Scale/model/ScaleNote';
+import { getContextualNoteName } from '@/entities/Scale/model/noteSpelling';
 import { getScaleInterval, getScaleStep, ScaleInterval, ScaleStep } from '@/entities/Scale/model/scaleDegree';
 
 interface MusicalScaleCreateConfig {
@@ -64,6 +65,20 @@ export class MusicalScale extends NoteCollection {
 
   public get degreeLabels(): string[] {
     return this.degrees.map(degree => degree.label);
+  }
+
+  /** Имя ноты, записанное музыкально корректно относительно тоники. */
+  public getDisplayName(note: Note | NoteNames): string {
+    const noteNumber = note instanceof Note ? note.note : note;
+    const semitonesFromTonic =
+      (((noteNumber - this._tonic.note) % MAX_NOTES_COUNT) + MAX_NOTES_COUNT) % MAX_NOTES_COUNT;
+
+    return getContextualNoteName(this._tonic.note, semitonesFromTonic);
+  }
+
+  /** Имена всех нот гаммы, записанные музыкально корректно относительно тоники. */
+  public getDisplayNames(): string[] {
+    return this.notes.map(note => this.getDisplayName(note));
   }
 
   public get intervals(): ScaleInterval[] {

@@ -6,6 +6,7 @@
       <FretNote
         :isZeroFret="index === 0"
         :note="note"
+        :displayName="getNoteLabel(note)"
         :isHidden="!hasInScale(note)"
         :isTonic="isTonic(note)"
         @next="() => onChangeTuningStringNote(true)"
@@ -38,8 +39,10 @@ const fretsNotes = computed((): Note[] => {
   return notes;
 });
 
+function getNoteLabel(note: Note): string {
+  return `${scaleStore.scale.getDisplayName(note)}${note.octave ?? ''}`;
+}
 function hasInScale(note: Note): boolean {
-  // console.log(note, scaleStore.scale.notes, scaleStore.scale.has(note))
   return scaleStore.scale.has(note);
 }
 function isTonic(note: Note): boolean {

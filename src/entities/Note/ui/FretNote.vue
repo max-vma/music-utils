@@ -36,6 +36,7 @@ import { Note } from '@/entities/Note/model';
 
 interface PropTypes {
   note: Note;
+  displayName?: string;
   isTonic?: boolean;
   isZeroFret?: boolean;
   isHidden?: boolean;
@@ -51,7 +52,7 @@ defineEmits<{
   (e: 'next'): void;
 }>();
 
-const noteLabel = computed(() => `${props.note.noteName}${props.note.octave ?? ''}`);
+const noteLabel = computed(() => props.displayName ?? `${props.note.noteName}${props.note.octave ?? ''}`);
 </script>
 
 <style lang="less" module>

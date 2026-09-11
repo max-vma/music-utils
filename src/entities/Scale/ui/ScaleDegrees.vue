@@ -38,9 +38,10 @@ const scaleStore = useScaleStore();
 const items = computed<ScaleDegreeItem[]>(() => {
   const scale = scaleStore.scale;
   const intervals = scale.intervals;
+  const noteLabels = scale.getDisplayNames();
 
   return scale.notes.map((note, index) => ({
-    noteLabel: note.noteName,
+    noteLabel: noteLabels[index] ?? note.noteName,
     degreeLabel: scale.degrees[index].label,
     intervalLabel: index > 0 ? intervals[index - 1].label : '',
     isTonic: index === 0,
